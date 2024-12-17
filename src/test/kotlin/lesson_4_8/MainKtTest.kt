@@ -186,4 +186,112 @@ class MainKtTest {
         // Then
         assertFalse(library.returnBook(userBob.id, book.id))
     }
+
+    @Test
+    fun `WHEN two Books have the same ID THEN equals returns true`() {
+        // Given
+        val book1 = Book(1, "1984", "George Orwell", "Dystopian")
+        val book2 = Book(1, "Animal Farm", "George Orwell", "Political Satire")
+
+        // When
+        val areEqual = book1 == book2
+
+        // Then
+        assertTrue(areEqual, "Books with the same ID should be equal")
+    }
+
+    @Test
+    fun `WHEN two Books have different IDs THEN equals returns false`() {
+        // Given
+        val book1 = Book(1, "1984", "George Orwell", "Dystopian")
+        val book2 = Book(2, "1984", "George Orwell", "Dystopian")
+
+        // When
+        val areEqual = book1 == book2
+
+        // Then
+        assertFalse(areEqual, "Books with different IDs should not be equal")
+    }
+
+    @Test
+    fun `WHEN two Books have the same ID THEN hashCode is the same`() {
+        // Given
+        val book1 = Book(1, "1984", "George Orwell", "Dystopian")
+        val book2 = Book(1, "Animal Farm", "George Orwell", "Political Satire")
+
+        // When
+        val hashCode1 = book1.hashCode()
+        val hashCode2 = book2.hashCode()
+
+        // Then
+        assertEquals(hashCode1, hashCode2, "Books with the same ID should have the same hashCode")
+    }
+
+    @Test
+    fun `WHEN two Books have different IDs THEN hashCode is different`() {
+        // Given
+        val book1 = Book(1, "1984", "George Orwell", "Dystopian")
+        val book2 = Book(2, "1984", "George Orwell", "Dystopian")
+
+        // When
+        val hashCode1 = book1.hashCode()
+        val hashCode2 = book2.hashCode()
+
+        // Then
+        assertNotEquals(hashCode1, hashCode2, "Books with different IDs should have different hashCodes")
+    }
+
+    @Test
+    fun `WHEN two Users have the same ID THEN equals returns true`() {
+        // Given
+        val user1 = User(1, "Alice")
+        val user2 = User(1, "Bob") // Інше ім'я, але той самий ID
+
+        // When
+        val areEqual = user1 == user2
+
+        // Then
+        assertTrue(areEqual, "Users with the same ID should be equal")
+    }
+
+    @Test
+    fun `WHEN two Users have different IDs THEN equals returns false`() {
+        // Given
+        val user1 = User(1, "Alice")
+        val user2 = User(2, "Alice")
+
+        // When
+        val areEqual = user1 == user2
+
+        // Then
+        assertFalse(areEqual, "Users with different IDs should not be equal")
+    }
+
+    @Test
+    fun `WHEN two Users have the same ID THEN hashCode is the same`() {
+        // Given
+        val user1 = User(1, "Alice")
+        val user2 = User(1, "Bob") // Інше ім'я, але той самий ID
+
+        // When
+        val hashCode1 = user1.hashCode()
+        val hashCode2 = user2.hashCode()
+
+        // Then
+        assertEquals(hashCode1, hashCode2, "Users with the same ID should have the same hashCode")
+    }
+
+    @Test
+    fun `WHEN two Users have different IDs THEN hashCode is different`() {
+        // Given
+        val user1 = User(1, "Alice")
+        val user2 = User(2, "Alice")
+
+        // When
+        val hashCode1 = user1.hashCode()
+        val hashCode2 = user2.hashCode()
+
+        // Then
+        assertNotEquals(hashCode1, hashCode2, "Users with different IDs should have different hashCodes")
+    }
 }
