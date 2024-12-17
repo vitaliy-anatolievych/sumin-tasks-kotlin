@@ -151,4 +151,39 @@ class MainKtTest {
         assertTrue(borrowAliceResult)
         assertFalse(borrowBobResult)
     }
+
+    @Test
+    fun `WHEN User tries to borrow more than 5 books THEN return false`() {
+        // Given
+        val user = User(1, "Alice")
+        library.registerUser(user)
+
+        // When & Then
+        repeat(5) { id ->
+            val book = Book(id, "Book $id", "Author", "Genre")
+            library.addBook(book)
+            assertTrue(library.borrowBook(user.id, book.id))
+        }
+
+        val sixthBook = Book(6, "Book 6", "Author", "Genre")
+        library.addBook(sixthBook)
+        assertFalse(library.borrowBook(user.id, sixthBook.id))
+    }
+
+    @Test
+    fun `WHEN Wrong user tries to return book THEN return false`() {
+        // Given
+        val book = Book(0, "1984", "George Orwell", "Dystopian")
+        val userAlice = User(1, "Alice")
+        val userBob = User(2, "Bob")
+
+        // When
+        library.addBook(book)
+        library.registerUser(userAlice)
+        library.registerUser(userBob)
+        library.borrowBook(userAlice.id, book.id)
+
+        // Then
+        assertFalse(library.returnBook(userBob.id, book.id))
+    }
 }
